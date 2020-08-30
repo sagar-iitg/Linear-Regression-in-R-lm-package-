@@ -1,0 +1,94 @@
+---
+title: '\textcolor{blue}{Assignment 1: R Programming}'
+author: "\\textcolor{blue}{Sagar Kumar \t | \t194161013}"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  word_document: default
+---
+
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+**Importing Data from csvfile**
+```{r}
+df<-read.csv("xy.csv") #read data in csv file.
+```
+
+**x**  "independent variable"  
+**y**  "dependent variable"  
+
+**Data Set**
+```{r}
+df  #dataframe
+```
+
+**48 Observation**
+Two Variables y is response variable and x is input variable.
+\newpage
+
+**Question 1**  
+
+A simple least squares model y = B0+B1*x from first principles and obtain B0 and B1.  
+
+```{r}
+Y<-df$y #dependent Variable
+intercept<-rep(1,length(Y)) #replicates the values.
+#intercept
+```
+
+**Design Matrix**
+
+```{r}
+X<-as.matrix(cbind(intercept,df$x))
+X  #Design Matrix
+```
+
+
+**Estmiating Coefficient**
+
+```{r}
+XtX_matrix<-solve(crossprod(X)) #crossprod ->X'X (inverse of X matrix)
+#d_matrix
+b=XtX_matrix  %*% crossprod(X,Y)  #Matrix Multiplication(%*%)
+b
+```
+
+So **intercept** is: 3.128201  
+and **slope** is :  2.005476
+
+
+**Find B0 and B1 using the linear model package lm.**
+
+
+```{r}
+
+lm.fit<-lm(df$y~df$x,data=df) #lm function
+coef(lm.fit)
+
+```
+
+So result is same .
+
+\newpage
+
+**Generate 100 values of x between [3:00; 50:00] and find the value
+of y **
+
+```{r}
+random_no<-runif(100,3,50)  #Generate random no
+random_no
+```
+
+
+
+```{r}
+y=3.128+2.005*random_no
+y #yvalues
+```
+
+
